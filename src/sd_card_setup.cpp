@@ -5,14 +5,13 @@
 #include "BluetoothA2DPSource.h"
 
 void initSDCard() {
-    pinMode(SD_MISO, INPUT_PULLUP); // Sometimes MISO needs a pullup
+    pinMode(SD_MISO, INPUT_PULLUP); 
     pinMode(SD_CS, OUTPUT);
-    digitalWrite(SD_CS, HIGH); // Ensure CS is high before starting SPI
+    digitalWrite(SD_CS, HIGH); 
 
     SPI.begin(SD_SCK, SD_MISO, SD_MOSI, SD_CS);
 
-    // Try a lower frequency (1 MHz instead of 4 MHz) for better stability
-    if(!SD.begin(SD_CS, SPI)){
+    if(!SD.begin(SD_CS, SPI, 4000000)){
         Serial.println("Card Mount Failed");
         return;
     }
